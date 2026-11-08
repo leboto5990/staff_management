@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="auth-page" id="authPage">
+    <section class="auth-wrap">
+      <h1>USER <span>LOGIN</span></h1>
+      <div class="auth-card">
+        <form id="loginForm">
+          <label class="field"><span>👤</span><input id="loginEmail" type="email" placeholder="Email ID" required></label>
+          <label class="field"><span>🔒</span><input id="loginPassword" type="password" placeholder="Password" required></label>
+          <div class="auth-options"><label><input type="checkbox" id="rememberMe"> Remember me</label><button class="text-button" type="button" id="showReset">Forgot Password?</button></div>
+          <button class="primary-btn" type="submit">LOGIN</button>
+          <p class="message" id="loginMessage" aria-live="polite"></p>
+        </form>
+        <form id="registerForm" class="hidden">
+          <h2>CREATE EMPLOYEE ACCOUNT</h2>
+          <label class="field"><span>👤</span><input id="registerName" type="text" placeholder="Full name" required></label>
+          <label class="field"><span>✉</span><input id="registerEmail" type="email" placeholder="Work email" required></label>
+          <label class="field"><span>🔒</span><input id="registerPassword" type="password" minlength="6" placeholder="Password (minimum 6 characters)" required></label>
+          <button class="primary-btn" type="submit">REGISTER</button>
+          <p class="message" id="registerMessage" aria-live="polite"></p>
+        </form>
+      </div>
+      <button class="register-toggle" id="toggleRegister" type="button">REGISTER</button>
+      <p class="small-note">Staff Management System</p>
+    </section>
+  </main>
+
+  <main class="dashboard hidden" id="dashboardPage">
+    <aside class="sidebar">
+      <div class="brand">STAFF<span>PORTAL</span></div>
+      <p class="side-label">MENU</p>
+      <nav id="adminNav" class="hidden">
+        <button class="nav-link active" data-view="overview">▦ &nbsp; Overview</button>
+        <button class="nav-link" data-view="employees">♙ &nbsp; Employees</button>
+        <button class="nav-link" data-view="announcements">▤ &nbsp; Announcements</button>
+      </nav>
+      <nav id="employeeNav" class="hidden">
+        <button class="nav-link active" data-view="myProfile">♙ &nbsp; My profile</button>
+        <button class="nav-link" data-view="myAnnouncements">▤ &nbsp; Announcements</button>
+      </nav>
+      <button class="logout-btn" id="logoutBtn">↪ &nbsp; LOG OUT</button>
+    </aside>
+
+    <section class="main-area">
+      <header class="topbar">
+        <div><p class="eyebrow" id="roleLabel">STAFF PORTAL</p><h1 id="welcomeTitle">Dashboard</h1></div>
+        <div class="user-chip"><span class="avatar" id="avatar">U</span><span id="headerName">User</span></div>
+      </header>
+
+      <section id="adminOverview" class="view">
+        <div class="welcome-panel"><div><p class="eyebrow light">ADMINISTRATION</p><h2>Welcome back, <span id="adminName">Admin</span></h2><p>Here is an overview of your staff system.</p></div><div class="welcome-icon">✦</div></div>
+        <div class="stat-grid">
+          <article class="stat-card"><p>Total employees</p><strong id="totalEmployees">0</strong><span>Registered staff records</span></article>
+          <article class="stat-card"><p>Announcements</p><strong id="totalAnnouncements">0</strong><span>Published notices</span></article>
+          <article class="stat-card"><p>Your role</p><strong class="role-value">ADMIN</strong><span>System administrator</span></article>
+        </div>
+        <article class="content-card"><div class="section-heading"><div><p class="eyebrow">LATEST ACTIVITY</p><h2>Recently added employees</h2></div><button class="outline-btn" data-goto="employees">Manage employees</button></div><div id="recentEmployees" class="table-wrap"></div></article>
+      </section>
+
+      <section id="adminEmployees" class="view hidden">
+        <article class="content-card">
+          <div class="section-heading"><div><p class="eyebrow">STAFF DIRECTORY</p><h2>Employee management</h2></div></div>
+          <form id="addEmployeeForm" class="add-form">
+            <input id="employeeName" placeholder="Employee full name" required>
+            <input id="employeeEmail" type="email" placeholder="Employee email" required>
+            <input id="employeeDepartment" placeholder="Department" required>
+            <button class="primary-small" type="submit">+ Add employee</button>
+          </form>
+          <p class="message" id="employeeMessage" aria-live="polite"></p>
+          <div id="employeeTable" class="table-wrap"></div>
+        </article>
+      </section>
+
+      <section id="adminAnnouncements" class="view hidden">
+        <article class="content-card">
+          <p class="eyebrow">COMMUNICATION</p><h2>Publish announcement</h2>
+          <form id="announcementForm" class="stack-form">
+            <input id="announcementTitle" placeholder="Announcement title" required>
+            <textarea id="announcementBody" rows="4" placeholder="Write your announcement..." required></textarea>
+            <button class="primary-small" type="submit">Publish announcement</button>
+          </form>
+          <p class="message" id="announcementMessage" aria-live="polite"></p>
+          <div id="adminAnnouncementList" class="announcement-list"></div>
+        </article>
+      </section>
+
+      <section id="employeeMyProfile" class="view hidden">
+        <article class="content-card profile-card"><p class="eyebrow">PERSONAL INFORMATION</p><h2>My employee profile</h2><div class="profile-grid"><div><span>Full name</span><strong id="profileName">—</strong></div><div><span>Email address</span><strong id="profileEmail">—</strong></div><div><span>Department</span><strong id="profileDepartment">Not assigned</strong></div><div><span>Account role</span><strong>Employee</strong></div></div><p class="hint">If your department or staff details are incorrect, contact your administrator.</p></article>
+      </section>
+      <section id="employeeMyAnnouncements" class="view hidden">
+        <article class="content-card"><p class="eyebrow">UPDATES</p><h2>Company announcements</h2><div id="employeeAnnouncementList" class="announcement-list"></div></article>
+      </section>
+      <p class="footer-note">Staff Portal · Secure access</p>
+    </section>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
